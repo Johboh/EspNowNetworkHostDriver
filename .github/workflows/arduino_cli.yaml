@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         example:
-          - name: sleeping_node
+          - name: host_driver
 
     steps:
       - name: Checkout repo
