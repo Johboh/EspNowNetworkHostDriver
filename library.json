@@ -34,6 +34,11 @@
   "dependencies": [
     {
       "owner": "johboh",
+      "name": "EspNowNetworkShared",
+      "version": "^1.0.0"
+    },
+    {
+      "owner": "johboh",
       "name": "EspNowNetworkHost",
       "version": "^0.7.0"
     }

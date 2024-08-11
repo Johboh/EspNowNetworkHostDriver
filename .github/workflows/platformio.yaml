@@ -19,7 +19,7 @@ jobs:
           - path: examples/arduino
             library: library.json
             remove: ""
-            extra_dependencies: ""
+            extra_dependencies: "johboh/MQTTRemote@^4.0.4, johboh/ConnectionHelper@^3.0.2"
 
     steps:
       - if: github.event_name == 'workflow_call' && matrix.target.path != inputs.target_path
