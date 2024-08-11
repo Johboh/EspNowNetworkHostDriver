@@ -26,6 +26,7 @@ jobs:
           arduino-cli lib install EspNowNetworkHost
           arduino-cli lib install ConnectionHelper
           arduino-cli lib install MQTTRemote
+          arduino-cli lib install MQTT@2.5.1
 
       - name: Install repo as library
         run: |
