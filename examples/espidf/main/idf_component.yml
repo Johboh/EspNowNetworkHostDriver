@@ -1,0 +1,7 @@
+dependencies:
+  EspNowNetworkHostDriver:
+    path: ../../../.
+  johboh/MQTTRemote:
+    version: ">=4.0.4"
+  johboh/ConnectionHelper:
+    version: ">=3.0.2"

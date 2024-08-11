@@ -1,0 +1,7 @@
+version: "0.7.0"
+description: Host driver code for the EspNowNetwork, see https://github.com/Johboh/EspNowNetwork for more details.
+url: https://github.com/Johboh/EspNowNetworkHostDriver
+dependencies:
+  idf: ">=4.4"
+  johboh/espnownetworkhost:
+    version: ">=0.7.0"
