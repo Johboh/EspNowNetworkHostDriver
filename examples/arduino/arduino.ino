@@ -44,9 +44,19 @@ const char esp_now_encryption_key[] = "0123456789ABCDEF"; // Must be exact 16 by
 // The secret should be the same for both the host and the node.
 const char esp_now_encryption_secret[] = "01234567"; // Must be exact 8 bytes long. \0 does not count.
 
-// OTA, WIFI and MQTT for host.
-OtaHelper _ota_helper(hostname);
-WiFiHelper _wifi_helper(wifi_ssid, wifi_password, hostname);
+// OTA and WiFI for host.
+// Configure OTA and set hostname for identifying this device.
+// Otherwise use defaults.
+OtaHelper::Configuration ota_configuration = {
+    .web_ota =
+        {
+            .id = hostname,
+        },
+};
+OtaHelper _ota_helper(ota_configuration);
+WiFiHelper _wifi_helper(hostname);
+
+// MQTT for host.
 MQTTRemote _mqtt_remote(mqtt_client_id, mqtt_host, mqtt_port, mqtt_username, mqtt_password);
 
 // Add Two foot pedals, one left and one right.
@@ -97,10 +107,23 @@ HostDriver _host_driver(_device_manager,
 void setup() {
   Serial.begin(115200);
 
-  // Connect to wifi.
-  _wifi_helper.connect();
+  // Add logging callbacks when using Arduino framework. When using ESP-IDF, use set_log_level() instead. See
+  // constructor and addOnLog().
+  _ota_helper.addOnLog([](const std::string message, const esp_log_level_t log_level) {
+    Serial.println("OtaHelper: " + String(message.c_str())); // ignoring log_level, logs everything. Noisy.
+  });
+  _wifi_helper.addOnLog([](const std::string message, const esp_log_level_t log_level) {
+    Serial.println("WifiHelper: " + String(message.c_str())); // ignoring log_level, logs everything. Noisy.
+  });
+
   esp_wifi_set_ps(WIFI_PS_NONE); // No sleep on WiFi to be able to receive ESP-NOW packages without being in AP mode.
-  _ota_helper.setup();
+
+  bool initialize_nvs = true;
+  bool timeout_ms = 10000;
+  auto connected = _wifi_helper.connectToAp(wifi_ssid, wifi_password, initialize_nvs, timeout_ms);
+  if (connected) {
+    _ota_helper.start();
+  }
 
   // Start host driver with Firmware Checker and Firmware Kicker (both optional)
   _host_driver.setup(_firmware_checker, _firmware_kicker);
@@ -110,8 +133,6 @@ void setup() {
 }
 
 void loop() {
-  _ota_helper.handle();
-  _wifi_helper.handle();
   _device_manager.handle();
   _firmware_checker.handle();
 }
