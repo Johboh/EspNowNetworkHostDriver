@@ -1,4 +1,4 @@
-name: ESP-IDF CI
+name: ESP-IDF CI Host Driver
 
 on:
   workflow_call:
