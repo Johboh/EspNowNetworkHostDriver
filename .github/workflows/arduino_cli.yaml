@@ -23,6 +23,7 @@ jobs:
           arduino-cli core update-index
           arduino-cli core install esp32:esp32@3.0.2
           arduino-cli lib install EspNowNetworkShared
+          arduino-cli lib install EspNowNetworkHost
           arduino-cli lib install ConnectionHelper
           arduino-cli lib install MQTTRemote
 
