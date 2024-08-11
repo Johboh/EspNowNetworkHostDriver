@@ -6,7 +6,7 @@ jobs:
   build_examples_for_verification:
     uses: ./.github/workflows/espidf.yaml
     with:
-      target_path: "examples/espidf"
+      target_path: "examples/espidf/host_driver"
 
   upload_components:
     runs-on: ubuntu-latest

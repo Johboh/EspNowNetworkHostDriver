@@ -29,7 +29,7 @@ jobs:
             version_number: release-v5.3
             target: esp32c6
         path:
-          - name: examples/espidf
+          - name: examples/espidf/host_driver
 
     steps:
       - if: github.event_name == 'workflow_call' && matrix.path.name != inputs.target_path

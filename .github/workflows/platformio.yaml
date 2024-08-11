@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         target:
-          - path: examples/arduino
+          - path: examples/arduino/host_driver
             library: library.json
             remove: ""
             extra_dependencies: "johboh/MQTTRemote@^4.0.4, johboh/ConnectionHelper@^3.0.2"
