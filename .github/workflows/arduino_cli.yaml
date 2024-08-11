@@ -34,4 +34,4 @@ jobs:
           ln -s "$PWD" "$HOME/Arduino/libraries/."
 
       - name: Compile Sketch
-        run: arduino-cli compile --fqbn esp32:esp32:esp32 examples/arduino/${{ matrix.example.name }}
+        run: arduino-cli compile --fqbn "esp32:esp32:esp32:PartitionScheme=default_8MB,FlashSize=8M" examples/arduino/${{ matrix.example.name }}
