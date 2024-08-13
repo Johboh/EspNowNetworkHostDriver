@@ -1,4 +1,4 @@
-version: "0.7.1"
+version: "0.7.2"
 description: Host driver code for the EspNowNetwork, see https://github.com/Johboh/EspNowNetwork for more details.
 url: https://github.com/Johboh/EspNowNetworkHostDriver
 dependencies:
@@ -6,4 +6,4 @@ dependencies:
   johboh/espnownetworkshared:
     version: ">=1.0.0"
   johboh/espnownetworkhost:
-    version: ">=0.7.1"
+    version: ">=0.7.2"
