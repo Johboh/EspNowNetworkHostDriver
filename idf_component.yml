@@ -6,4 +6,4 @@ dependencies:
   johboh/espnownetworkshared:
     version: ">=1.0.0"
   johboh/espnownetworkhost:
-    version: ">=0.7.2"
+    version: ">=0.7.1"
