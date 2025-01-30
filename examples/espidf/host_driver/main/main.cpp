@@ -87,7 +87,7 @@ DeviceFootPedal _device_foot_pedal_right(_mqtt_remote, 0x543204016bfc, "Right", 
 std::vector<std::reference_wrapper<Device>> _devices{_device_foot_pedal_left, _device_foot_pedal_right};
 
 // Create Device Manager and Firmware Checker and register devices.
-DeviceManager _device_manager(_devices, []() { return _mqtt_remote.connected(); });
+DeviceManager _device_manager(_devices);
 FirmwareChecker _firmware_checker(firmware_update_base_url, _devices, {.check_every_ms = 30000});
 FirmwareKicker _firmware_kicker(_firmware_checker, firmware_kicker_port);
 
@@ -122,7 +122,12 @@ void app_main(void) {
     }
 
     // Start MQTT
-    _mqtt_remote.start();
+    _mqtt_remote.start([](bool connected) {
+      // Let devices know if we are connected or not.
+      for (const auto &device : _devices) {
+        device.get().onConnectionStateChanged(connected);
+      }
+    });
 
     // Start host driver with Firmware Checker and Firmware Kicker (both optional)
     _host_driver.setup(_firmware_checker, _firmware_kicker);

@@ -24,15 +24,12 @@ const uint32_t DEFAULT_TASK_PRIORITY = 7;
  */
 class DeviceManager : public IDeviceManager {
 public:
-  using IsConnected = std::function<bool(void)>;
-
   /**
    * @brief Construct a new Device Manager object
    *
    * @param devices the list of devices.
-   * @param is_connected return if we are currently connected to MQTT.
    */
-  DeviceManager(std::vector<std::reference_wrapper<Device>> &devices, IsConnected is_connected);
+  DeviceManager(std::vector<std::reference_wrapper<Device>> &devices);
 
 public:
   /**
@@ -74,10 +71,6 @@ private:
   static void run_task(void *pvParams);
 
 private:
-  bool _was_connected = false;
-
-private:
-  IsConnected _is_connected;
   std::vector<OnLog> _on_log;
 
 private:

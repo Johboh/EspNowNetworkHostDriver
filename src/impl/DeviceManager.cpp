@@ -3,8 +3,7 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
-DeviceManager::DeviceManager(std::vector<std::reference_wrapper<Device>> &devices, IsConnected is_connected)
-    : _is_connected(is_connected) {
+DeviceManager::DeviceManager(std::vector<std::reference_wrapper<Device>> &devices) {
   for (const auto &device_ref : devices) {
     auto &device = device_ref.get();
     _devices.insert({device.macAddress(), device});
@@ -30,15 +29,6 @@ void DeviceManager::handle() {
     auto &device = device_pair.second.get();
     device.handle(_last_message_ms[device.macAddress()]);
   }
-
-  auto connected = _is_connected && _is_connected();
-  if (!_was_connected && connected) {
-    for (const auto &device_pair : _devices) {
-      auto &device = device_pair.second.get();
-      device.onConnectionStateChanged(connected);
-    }
-  }
-  _was_connected = connected;
 }
 
 void DeviceManager::forward(uint8_t retries, uint64_t mac_address, const uint8_t *message) {
