@@ -2,6 +2,6 @@ dependencies:
   EspNowNetworkHostDriver:
     path: ../../../../.
   johboh/mqttremote:
-    version: ">=5.0.1"
+    version: ">=5.0.2"
   johboh/connectionhelper:
     version: ">=3.0.5"

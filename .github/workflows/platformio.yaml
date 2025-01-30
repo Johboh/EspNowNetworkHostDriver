@@ -19,7 +19,7 @@ jobs:
           - path: examples/arduino/host_driver
             library: library.json
             remove: ""
-            extra_dependencies: "johboh/MQTTRemote@^5.0.1, johboh/ConnectionHelper@^3.0.2"
+            extra_dependencies: "johboh/MQTTRemote@^5.0.2, johboh/ConnectionHelper@^3.0.2"
 
     steps:
       - if: github.event_name == 'workflow_call' && matrix.target.path != inputs.target_path
