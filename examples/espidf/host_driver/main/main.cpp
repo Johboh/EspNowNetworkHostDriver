@@ -84,7 +84,9 @@ DeviceFootPedal _device_foot_pedal_right(_mqtt_remote, 0x543204016bfc, "Right", 
 });
 
 // List all devices.
-std::vector<std::reference_wrapper<Device>> _devices{_device_foot_pedal_left, _device_foot_pedal_right};
+std::vector<std::reference_wrapper<LocalDevice>> _local_devices{_device_foot_pedal_left, _device_foot_pedal_right};
+// Creating new vector, but not making copy of devices themself.
+auto _devices = std::vector<std::reference_wrapper<Device>>{_local_devices.begin(), _local_devices.end()};
 
 // Create Device Manager and Firmware Checker and register devices.
 DeviceManager _device_manager(_devices);
@@ -124,7 +126,7 @@ void app_main(void) {
     // Start MQTT
     _mqtt_remote.start([](bool connected) {
       // Let devices know if we are connected or not.
-      for (const auto &device : _devices) {
+      for (const auto &device : _local_devices) {
         device.get().onConnectionStateChanged(connected, _host_driver.host());
       }
     });

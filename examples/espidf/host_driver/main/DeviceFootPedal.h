@@ -1,8 +1,8 @@
 #ifndef __DEVICE_FOOT_PEDAL_H__
 #define __DEVICE_FOOT_PEDAL_H__
 
-#include "Device.h"
 #include "EspNowHost.h"
+#include "LocalDevice.h"
 #include "esp-now-device-structs.h"
 #include <IMQTTRemote.h>
 #include <functional>
@@ -11,7 +11,7 @@
  * @brief A foot pedal. This represent a node that is running in a foot pedal, that upon tapping will send
  * either a tap or a long tap event.
  */
-class DeviceFootPedal : public Device {
+class DeviceFootPedal : public LocalDevice {
 public:
   /**
    * @brief Construct a foot pedal.
