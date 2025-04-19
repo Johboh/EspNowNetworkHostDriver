@@ -102,6 +102,7 @@ HostDriver _host_driver(_device_manager,
                             .esp_now_encryption_secret = esp_now_encryption_secret,
                         },
                         [](const std::string message, const std::string sub_path, const bool retain) {
+                          ESP_LOGI(TAG, "HostDriver: @ %s: %s", sub_path.c_str(), message.c_str());
                           _mqtt_remote.publishMessage(_mqtt_remote.clientId() + sub_path, message, retain);
                         });
 
