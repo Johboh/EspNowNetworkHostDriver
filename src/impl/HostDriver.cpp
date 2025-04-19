@@ -123,7 +123,7 @@ std::optional<EspNowHost::FirmwareUpdate> HostDriver::onFirmwareUpdate(uint64_t 
   auto name = optdev->get().name();
   auto hardware = optdev->get().hardware();
   auto firmware_mqtt_path =
-      "/firmware/current/" + type + (hardware ? "/" + hardware.value() : "") + "/" + makeMqttPathCompatible(name);
+      "/firmware/current/" + type + (hardware ? "/" + hardware.value() : "") + "/" + makePathMqttCompatible(name);
 
   // Do we have a newer firmware version for this type?
   auto update_information = _firmware_checker.value().get().getUpdateUrl(firmware_version, type, hardware);
@@ -143,7 +143,7 @@ std::optional<EspNowHost::FirmwareUpdate> HostDriver::onFirmwareUpdate(uint64_t 
   return std::optional<EspNowHost::FirmwareUpdate>{std::nullopt};
 }
 
-std::string HostDriver::makeMqttPathCompatible(const std::string &input) {
+std::string HostDriver::makePathMqttCompatible(const std::string &input) {
   std::string result;
   for (char c : input) {
     if (c != '+' && c != '#' && c != '/') {

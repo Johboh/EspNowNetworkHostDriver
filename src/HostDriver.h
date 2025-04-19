@@ -21,7 +21,7 @@
 class HostDriver {
 public:
   /**
-   * @brief Callback when the firmware checker want to log something.
+   * @brief Callback when the host driver want to log something.
    *
    * This doesn't need to be implemented. Can be used to print debug information to serial
    * or post debug information to for example an MQTT topic.
@@ -86,6 +86,11 @@ public:
   void setup(std::optional<std::reference_wrapper<IFirmwareChecker>> firmware_checker = std::nullopt,
              std::optional<std::reference_wrapper<IFirmwareKicker>> firmware_kicker = std::nullopt);
 
+  /**
+   * Get the actual host, for calling functions like setPayload() and pendingOutgoingPayload(),
+   */
+  EspNowHost &host() { return _esp_now_host; };
+
 private:
   std::string logLevelToString(const esp_log_level_t log_level);
 
@@ -102,7 +107,7 @@ private:
                                                              const char *wifi_ssid, const char *wifi_password);
   void onNewApplicationMessage(EspNowHost::MessageMetadata metadata, const uint8_t *message);
 
-  std::string makeMqttPathCompatible(const std::string &input);
+  std::string makePathMqttCompatible(const std::string &input);
 
   void log(const std::string sub_path, const std::string message, const bool retain = false);
 

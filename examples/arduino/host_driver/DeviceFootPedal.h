@@ -2,6 +2,7 @@
 #define __DEVICE_FOOT_PEDAL_H__
 
 #include "Device.h"
+#include "EspNowHost.h"
 #include "esp-now-device-structs.h"
 #include <IMQTTRemote.h>
 #include <functional>
@@ -27,6 +28,7 @@ public:
                   std::function<void(uint8_t)> on_click);
 
 public:
+  void onConnectionStateChanged(bool connected, EspNowHost &esp_now_host);
   std::string type() override { return "foot_pedal"; }
   uint64_t macAddress() override { return _mac_address; }
   std::string name() override { return "Foot pedal: " + _name_suffix; }

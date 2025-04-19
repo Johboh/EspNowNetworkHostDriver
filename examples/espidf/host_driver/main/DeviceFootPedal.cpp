@@ -5,6 +5,15 @@ DeviceFootPedal::DeviceFootPedal(IMQTTRemote &mqtt_remote, uint64_t mac_address,
                                  std::function<void(uint8_t)> on_click)
     : _mac_address(mac_address), _name_suffix(name_suffix), _mqtt_remote(mqtt_remote), _on_click(on_click) {}
 
+void DeviceFootPedal::onConnectionStateChanged(bool connected, EspNowHost &esp_now_host) {
+  if (connected) {
+    auto base_path = _mqtt_remote.clientId() + "/" + type() + "/0x" + DeviceUtils::toHex(macAddress());
+    mqtt_remote.subscribe(base_path + "/message", [](std::string topic, std::string message) {
+      // Got message. Potentially do something here, like setting payload using esp_now_host.setPayload()
+    });
+  }
+}
+
 bool DeviceFootPedal::onMessage(const uint8_t retries, const uint8_t version, const uint8_t *message) {
   switch (version) {
   case 1:

@@ -50,13 +50,6 @@ public:
   virtual void handle(unsigned long last_message_received_at) {}
 
   /**
-   * @brief Main application (your application) need to call this when on connection change. What "connection" mean is
-   * up to the caller, but usually this indicate that we are now connected to the Internet or to a MQTT server
-   * or some other integration. This can be useful if the Device need to post som initial setup data to MQTT or similar.
-   */
-  virtual void onConnectionStateChanged(bool connected) {}
-
-  /**
    * @brief Called on new message when the a message for this device has been received, e.g. when a message is received
    * that matched this device mac address, given by macAddress()
    *

@@ -125,7 +125,7 @@ void app_main(void) {
     _mqtt_remote.start([](bool connected) {
       // Let devices know if we are connected or not.
       for (const auto &device : _devices) {
-        device.get().onConnectionStateChanged(connected);
+        device.get().onConnectionStateChanged(connected, _host_driver.host());
       }
     });
 
