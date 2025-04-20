@@ -9,7 +9,6 @@
 #include <OtaHelper.h>
 #include <WiFiHelper.h>
 #include <esp_log.h>
-#include <esp_netif_sntp.h>
 #include <esp_sntp.h>
 #include <esp_wifi.h>
 #include <freertos/FreeRTOS.h>
@@ -115,7 +114,7 @@ void setupTime() {
   setenv("TZ", "CET-1CEST,M3.5.0/02,M10.5.0/03", 1);
   tzset();
 
-  esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+  esp_sntp_setoperatingmode(ESP_SNTP_OPMODE_POLL);
   esp_sntp_setservername(0, "0.se.pool.ntp.org");
   esp_sntp_setservername(1, "1.se.pool.ntp.org");
   esp_sntp_init();
