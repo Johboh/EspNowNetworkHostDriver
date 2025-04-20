@@ -8,7 +8,7 @@ DeviceFootPedal::DeviceFootPedal(IMQTTRemote &mqtt_remote, uint64_t mac_address,
 void DeviceFootPedal::onConnectionStateChanged(bool connected, EspNowHost &esp_now_host) {
   if (connected) {
     auto base_path = _mqtt_remote.clientId() + "/" + type() + "/0x" + DeviceUtils::toHex(macAddress());
-    _mqtt_remote.subscribe(base_path + "/message", [](std::string topic, std::string message) {
+    _mqtt_remote.subscribe(base_path + "/message", [&](std::string topic, std::string message) {
       // Set payload to node, will be sent to node on next challenge request by the node.
       std::string tmp = "payload: " + message;
       esp_now_host.setPayload(macAddress(), (uint8_t *)tmp.c_str(), tmp.size());
