@@ -9,6 +9,8 @@
 #include <OtaHelper.h>
 #include <WiFiHelper.h>
 #include <esp_log.h>
+#include <esp_netif_sntp.h>
+#include <esp_sntp.h>
 #include <esp_wifi.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
@@ -106,6 +108,26 @@ HostDriver _host_driver(_device_manager,
                           _mqtt_remote.publishMessage(_mqtt_remote.clientId() + sub_path, message, retain);
                         });
 
+void setupTime() {
+  // Set timezone to Europe. Adjust for your timezone.
+  // With this set, the unix timestamp sent to nodes will be in local time.
+  // If not, it will be in UTC.
+  setenv("TZ", "CET-1CEST,M3.5.0/02,M10.5.0/03", 1);
+  tzset();
+
+  esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+  esp_sntp_setservername(0, "0.se.pool.ntp.org");
+  esp_sntp_setservername(1, "1.se.pool.ntp.org");
+  esp_sntp_init();
+
+  int retry = 0;
+  const int retry_count = 60;
+  while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET && ++retry < retry_count) {
+    ESP_LOGI(TAG, "Waiting for system time to be set... (%d/%d)", retry, retry_count);
+    vTaskDelay(250 / portTICK_PERIOD_MS);
+  }
+}
+
 extern "C" {
 void app_main();
 }
@@ -113,7 +135,9 @@ void app_main();
 void app_main(void) {
 
   // Connect to WIFI
-  auto connected = _wifi_helper.connectToAp(wifi_ssid, wifi_password, true, 10000);
+  bool initialize_nvs = true;
+  int timeout_ms = 10000;
+  auto connected = _wifi_helper.connectToAp(wifi_ssid, wifi_password, initialize_nvs, timeout_ms);
   if (connected) {
     // Connected to WIFI
 
@@ -134,6 +158,12 @@ void app_main(void) {
 
     // Start host driver with Firmware Checker and Firmware Kicker (both optional)
     _host_driver.setup(_firmware_checker, _firmware_kicker);
+
+    // Optionally setup time to correctly report unix timestamp to nodes.
+    setupTime();
+
+    // As an example, don't require challenge requests from the Right pedal.
+    _host_driver.host().allowToSkipChallengeVerification({_device_foot_pedal_right.macAddress()});
 
     // Start task for the device manager and firmware checker and start firmware kicker
     _device_manager.startTask();

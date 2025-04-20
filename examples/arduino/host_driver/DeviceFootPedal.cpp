@@ -9,7 +9,9 @@ void DeviceFootPedal::onConnectionStateChanged(bool connected, EspNowHost &esp_n
   if (connected) {
     auto base_path = _mqtt_remote.clientId() + "/" + type() + "/0x" + DeviceUtils::toHex(macAddress());
     _mqtt_remote.subscribe(base_path + "/message", [](std::string topic, std::string message) {
-      // Got message. Potentially do something here, like setting payload using esp_now_host.setPayload()
+      // Set payload to node, will be sent to node on next challenge request by the node.
+      std::string tmp = "payload: " + message;
+      esp_now_host.setPayload(macAddress(), (uint8_t *)tmp.c_str(), tmp.size());
     });
   }
 }

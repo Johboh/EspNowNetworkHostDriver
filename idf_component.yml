@@ -4,6 +4,6 @@ url: https://github.com/Johboh/EspNowNetworkHostDriver
 dependencies:
   idf: ">=4.4"
   johboh/espnownetworkshared:
-    version: ">=1.0.0"
+    version: ">=1.0.2"
   johboh/espnownetworkhost:
-    version: ">=0.7.2"
+    version: ">=0.8.0"
