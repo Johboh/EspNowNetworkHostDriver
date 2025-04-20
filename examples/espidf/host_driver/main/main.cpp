@@ -109,8 +109,7 @@ HostDriver _host_driver(_device_manager,
 
 void setupTime() {
   // Set timezone to Europe. Adjust for your timezone.
-  // With this set, the unix timestamp sent to nodes will be in local time.
-  // If not, it will be in UTC.
+  // Timestamp sent to nodes will always be in UTC as per unix timestamp definition.
   setenv("TZ", "CET-1CEST,M3.5.0/02,M10.5.0/03", 1);
   tzset();
 
