@@ -7,7 +7,7 @@
   {
     "name": "Johan Böhlin"
   },
-  "version": "0.7.5",
+  "version": "0.7.6",
   "license": "GPL-3.0-or-later",
   "repository":
   {
@@ -34,13 +34,8 @@
   "dependencies": [
     {
       "owner": "johboh",
-      "name": "EspNowNetworkShared",
-      "version": "^1.0.3"
-    },
-    {
-      "owner": "johboh",
       "name": "EspNowNetworkHost",
-      "version": "^0.8.1"
+      "version": "^0.8.2"
     }
   ]
 }
