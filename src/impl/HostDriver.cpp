@@ -8,7 +8,7 @@ HostDriver::HostDriver(IDeviceManager &device_manager, HostDriver::Configuration
     : _on_log(on_log), _crypt(configuration.esp_now_encryption_key, configuration.esp_now_encryption_secret),
       _on_message(on_message),
       _esp_now_host(
-          __crypt, configuration.host_configuration, std::bind(&HostDriver::onNewMessage, this),
+          _crypt, configuration.host_configuration, std::bind(&HostDriver::onNewMessage, this),
           std::bind(&HostDriver::onNewApplicationMessage, this, _1, _2),
           std::bind(&HostDriver::onFirmwareUpdate, this, _1, _2, configuration.wifi_ssid, configuration.wifi_password),
           std::bind(&HostDriver::onHostLog, this, _1, _2)),
