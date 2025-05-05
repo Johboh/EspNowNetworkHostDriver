@@ -5,10 +5,10 @@ using namespace std::placeholders;
 
 HostDriver::HostDriver(IDeviceManager &device_manager, HostDriver::Configuration configuration, OnLog on_log,
                        OnMessage on_message)
-    : _on_log(on_log), _on_message(on_message),
-      _esp_now_crypt(configuration.esp_now_encryption_key, configuration.esp_now_encryption_secret),
+    : _on_log(on_log), _crypt(configuration.esp_now_encryption_key, configuration.esp_now_encryption_secret),
+      _on_message(on_message),
       _esp_now_host(
-          _esp_now_crypt, configuration.host_configuration, std::bind(&HostDriver::onNewMessage, this),
+          __crypt, configuration.host_configuration, std::bind(&HostDriver::onNewMessage, this),
           std::bind(&HostDriver::onNewApplicationMessage, this, _1, _2),
           std::bind(&HostDriver::onFirmwareUpdate, this, _1, _2, configuration.wifi_ssid, configuration.wifi_password),
           std::bind(&HostDriver::onHostLog, this, _1, _2)),

@@ -2,9 +2,9 @@
 #define __HOST_DRIVER_H__
 
 #include "esp_log.h"
-#include <EspNowCrypt.h>
 #include <EspNowHost.h>
 #include <FirmwareChecker.h>
+#include <GCMEncryption.h>
 #include <IDeviceManager.h>
 #include <IFirmwareChecker.h>
 #include <IFirmwareKicker.h>
@@ -113,8 +113,8 @@ private:
 
 private:
   OnLog _on_log;
+  GCMEncryption _crypt;
   OnMessage _on_message;
-  EspNowCrypt _esp_now_crypt;
   EspNowHost _esp_now_host;
   IDeviceManager &_device_manager;
   std::optional<std::reference_wrapper<IFirmwareKicker>> _firmware_kicker;
