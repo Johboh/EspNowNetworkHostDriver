@@ -3,5 +3,7 @@ description: Host driver code for the EspNowNetwork, see https://github.com/Johb
 url: https://github.com/Johboh/EspNowNetworkHostDriver
 dependencies:
   idf: ">=4.4"
+  johboh/gcmencryption:
+    version: ">=0.5.2"
   johboh/espnownetworkhost:
     version: ">=0.8.2"
