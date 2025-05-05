@@ -17,9 +17,6 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: ESP IDF CMake stuff
-        run: rm -rf CMakeLists.txt idf_component.yml
-
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
 
