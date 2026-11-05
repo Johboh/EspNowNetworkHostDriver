@@ -145,7 +145,7 @@ void setup() {
   esp_wifi_set_ps(WIFI_PS_NONE); // No sleep on WiFi to be able to receive ESP-NOW packages without being in AP mode.
 
   bool initialize_nvs = true;
-  bool timeout_ms = 10000;
+  int timeout_ms = 10000;
   auto connected = _wifi_helper.connectToAp(wifi_ssid, wifi_password, initialize_nvs, timeout_ms);
   if (connected) {
     _ota_helper.start();
@@ -164,15 +164,25 @@ void setup() {
   _firmware_kicker.start();
 
   // Let devices know if we are connected or not.
+#if defined(ESP32) && defined(PLATFORMIO)
+  _mqtt_remote.start([](bool connected) {
+    for (const auto &device : _local_devices) {
+      device.get().onConnectionStateChanged(connected, _host_driver.host());
+    }
+  });
+#else
   _mqtt_remote.setOnConnectionChange([](bool connected) {
     for (const auto &device : _local_devices) {
       device.get().onConnectionStateChanged(connected, _host_driver.host());
     }
   });
+#endif
 }
 
 void loop() {
+#if !defined(ESP32) && !defined(PLATFORMIO)
   _mqtt_remote.handle();
+#endif
   _device_manager.handle();
   _firmware_checker.handle();
 }

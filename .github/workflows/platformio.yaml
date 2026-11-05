@@ -19,7 +19,7 @@ jobs:
           - path: examples/arduino/host_driver
             library: library.json
             remove: ""
-            extra_dependencies: "johboh/MQTTRemote@^6.0.5, johboh/ConnectionHelper@^3.0.2"
+            extra_dependencies: "johboh/MQTTRemote@^6.0.5, johboh/ConnectionHelper@^3.0.18"
 
     steps:
       - if: github.event_name == 'workflow_call' && matrix.target.path != inputs.target_path
@@ -27,9 +27,16 @@ jobs:
 
       - uses: actions/checkout@v4.1.1
 
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
@@ -45,5 +52,5 @@ jobs:
       - name: Build PlatformIO targets
         run: ${{ env.PLATFORMIO_CI_BASE_CMD }} --project-option="lib_deps=${{ matrix.target.extra_dependencies }}"
         env:
-          PLATFORMIO_CI_BASE_CMD: pio ci --lib="." --board=lolin_c3_mini --project-option="build_unflags=-std=gnu++11" --project-option="build_flags=-std=gnu++17" --project-option="platform=espressif32@6.4.0" --project-option="lib_ldf_mode=deep"
+          PLATFORMIO_CI_BASE_CMD: pio ci --lib="." --board=lolin_c3_mini --project-option="build_unflags=-std=gnu++11" --project-option="build_flags=-std=gnu++17" --project-option="lib_ldf_mode=deep"
           PLATFORMIO_CI_SRC: ${{ matrix.target.path }}
