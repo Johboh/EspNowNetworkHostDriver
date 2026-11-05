@@ -164,7 +164,7 @@ void setup() {
   _firmware_kicker.start();
 
   // Let devices know if we are connected or not.
-#if defined(ESP32) && defined(PLATFORMIO)
+#ifdef PLATFORMIO
   _mqtt_remote.start([](bool connected) {
     for (const auto &device : _local_devices) {
       device.get().onConnectionStateChanged(connected, _host_driver.host());
@@ -180,7 +180,7 @@ void setup() {
 }
 
 void loop() {
-#if !defined(ESP32) && !defined(PLATFORMIO)
+#ifndef PLATFORMIO
   _mqtt_remote.handle();
 #endif
   _device_manager.handle();
