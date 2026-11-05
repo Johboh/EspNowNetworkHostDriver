@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #include "DeviceUtils.h"
 #include <DeviceManager.h>
 #include <freertos/FreeRTOS.h>

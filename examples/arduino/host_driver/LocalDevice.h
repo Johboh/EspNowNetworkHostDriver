@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef __LOCAL_DEVICE_H__
 #define __LOCAL_DEVICE_H__
 

@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef __DEVICE_FOOT_PEDAL_H__
 #define __DEVICE_FOOT_PEDAL_H__
 

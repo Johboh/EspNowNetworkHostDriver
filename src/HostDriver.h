@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef __HOST_DRIVER_H__
 #define __HOST_DRIVER_H__
 

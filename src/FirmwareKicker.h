@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef __FIRMWARE_KICKER_H__
 #define __FIRMWARE_KICKER_H__
 

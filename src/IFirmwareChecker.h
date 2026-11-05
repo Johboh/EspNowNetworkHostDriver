@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef __IFIRMWARE_CHECKER_H__
 #define __IFIRMWARE_CHECKER_H__
 

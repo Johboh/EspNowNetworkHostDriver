@@ -1,3 +1,6 @@
+// Copyright (c) Johan Böhlin
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef __IDEVICE_MANAGER_H__
 #define __IDEVICE_MANAGER_H__
 

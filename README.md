@@ -6,3 +6,6 @@
 [![Clang-format](https://github.com/Johboh/EspNowNetworkHostDriver/actions/workflows/clang-format.yaml/badge.svg)](https://github.com/Johboh/EspNowNetworkHostDriver)
 
 Host Driver library of [EspNowNetwork](https://github.com/Johboh/EspNowNetwork). See [EspNowNetwork](https://github.com/Johboh/EspNowNetwork) for more details.
+
+### License
+Licensed under the GNU General Public License v3.0 or later
