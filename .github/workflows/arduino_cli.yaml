@@ -26,7 +26,7 @@ jobs:
           arduino-cli lib install GCMEncryption
           arduino-cli lib install EspNowNetworkHost
           arduino-cli lib install ConnectionHelper
-          arduino-cli lib install MQTTRemote@5.0.2
+          arduino-cli lib install MQTTRemote@6.0.5
           arduino-cli lib install MQTT@2.5.1
 
       - name: Install repo as library
