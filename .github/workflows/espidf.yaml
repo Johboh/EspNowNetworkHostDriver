@@ -2,12 +2,9 @@ name: ESP-IDF CI Host Driver
 
 on:
   workflow_call:
-    inputs:
-      target_path:
-        type: string
-        description: 'Path value to select a specific target in the matrix'
-        required: true
   push:
+    branches:
+      - '**'
 
 jobs:
   build:
@@ -26,10 +23,7 @@ jobs:
           - name: examples/espidf/host_driver
 
     steps:
-      - if: github.event_name == 'workflow_call' && matrix.path.name != inputs.target_path
-        run: exit 0
-
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4
 
       - name: ESP-IDF Build
         uses: espressif/esp-idf-ci-action@v1
