@@ -39,6 +39,7 @@ jobs:
 
       - name: Install library dependencies
         run: |
+          arduino-cli lib update-index
           arduino-cli lib install EspNowNetworkShared
           arduino-cli lib install GCMEncryption
           arduino-cli lib install EspNowNetworkHost
