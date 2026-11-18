@@ -7,4 +7,4 @@ dependencies:
   johboh/gcmencryption:
     version: ">=1.0.0"
   johboh/espnownetworkhost:
-    version: ">=0.8.3"
+    version: ">=0.8.4"
